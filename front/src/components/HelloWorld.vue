@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { defineProps, reactive, onMounted } from "vue";
+import {reactive, onMounted } from "vue";
 
 defineProps({
   msg: String,

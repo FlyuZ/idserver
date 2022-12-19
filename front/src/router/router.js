@@ -3,10 +3,10 @@
 import { createRouter, createWebHashHistory } from "vue-router"
 const router = createRouter({   //createRouter   vue2中是 new Vue
     history: createWebHashHistory(),
-    routes: [{  //配置路由规则
-        name: 'HelloWorld',
-        path: '/', //默认路径
-        component: () => import('../components/HelloWorld.vue')
+    routes: [
+    { 
+        path: '/',
+        redirect: "/HelloWorld",
     },
     {
         name: 'HelloWorld',
