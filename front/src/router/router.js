@@ -22,7 +22,16 @@ const router = createRouter({   //createRouter   vue2中是 new Vue
         name: 'ID',
         path: '/ID',
         component: () => import('../components/ID.vue')
-    }
+    },
+    {
+        name: 'Explain',
+        path: '/Explain',
+        component: () => import('../components/Explain.vue')
+    },
+    {
+        path: '/:catchAll(.*)',
+        component: () => import('../components/404.vue')
+      }
     ]
 })
 

@@ -14,7 +14,7 @@ export default defineConfig({
     // 跨域代理配置
     proxy: {
       '/api': {
-        target: 'http://192.168.3.28:8080',
+        target: 'http://127.0.0.1:8010',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '')
       }

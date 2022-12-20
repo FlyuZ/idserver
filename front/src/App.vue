@@ -13,13 +13,13 @@
             <el-menu-item index="ID">
               <span>身份识别</span>
             </el-menu-item>
-            <el-menu-item index="2" disabled>
+            <el-menu-item index="404" disabled>
               <span>群体计数</span>
             </el-menu-item>
-            <el-menu-item index="3" disabled>
+            <el-menu-item index="404" disabled>
               <span>表型估计</span>
             </el-menu-item>
-            <el-menu-item index="4">
+            <el-menu-item index="Explain">
               <span>说明</span>
             </el-menu-item>
           </el-menu>
