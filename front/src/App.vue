@@ -1,11 +1,14 @@
 <template>
   <div class="common-layout">
-    <el-container>
-      <el-header>欢 迎 使 用 </el-header>
+    <el-container class="layout-container" style="height: 500px">
+      <el-header height="50px">
+        <div>
+          <img src="./assets/nwafu.svg" width="264" height="43" />
+        </div>
+      </el-header>
       <el-container>
         <el-aside width="20%">
-          <h5 class="mb-2">功能菜单</h5>
-          <el-menu default-active="0" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+          <el-menu default-active="0"  @open="handleOpen" @close="handleClose"
             @select="handleSelect">
             <el-menu-item index="HelloWorld">
               <span>首页</span>
@@ -60,6 +63,10 @@ const handleSelect = (key: string, keyPath: string[]) => {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+.layout-container .el-header {
+  position: relative;
+  background-color: #67C23A;
+  color: var(--el-text-color-primary);
 }
 </style>

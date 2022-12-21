@@ -30,7 +30,7 @@
           </el-row>
           <el-row>
             <el-col :span="24">
-              <el-button type="primary" class="m-2" @click="loadModel">开始加载</el-button>
+              <el-button type="primary" class="m-2" @click="initIDenv">开始加载</el-button>
             </el-col>
           </el-row>
         </el-aside>
@@ -87,7 +87,7 @@ const options = [
     label: '曹新庄',
   },
 ]
-const loadModel = () => {
+const initIDenv = () => {
   console.log('加载模型', galleryValue.value)
   if (galleryValue.value == '') {
     ElMessage({
@@ -96,10 +96,13 @@ const loadModel = () => {
     })
   } else {
     console.log('option', options)
-    active.value = 1
-    ElMessage({
-      message: '加载成功',
-      type: 'success'
+    axios.post("/api/initIDenv").then((res) => {
+      console.log('res', res)
+      ElMessage({
+        message: '加载模型成功',
+        type: 'success'
+      })
+      active.value = 1
     })
   }
 }
@@ -126,10 +129,10 @@ const start = () => {
     const fileParam = new FormData()
     fileParam.append("file", curfile.value["raw"])
     fileParam.append("fileName", curfile.value["name"])
-    axios.post('/api/uploadImage', fileParam).then(res => {
+    axios.post('/api/uploadAndInfer', fileParam).then(res => {
       console.log(res)
       ElMessage({
-        message: '图片上传成功，开始识别...',
+        message: '识别成功',
         type: 'success'
       })
     }).catch(err => {
