@@ -14,11 +14,6 @@ const router = createRouter({   //createRouter   vue2中是 new Vue
         component: () => import('../components/HelloWorld.vue')
     },
     {
-        name: 'Index',
-        path: '/Index',
-        component: () => import('../components/Index.vue')
-    },
-    {
         name: 'ID',
         path: '/ID',
         component: () => import('../components/ID.vue')

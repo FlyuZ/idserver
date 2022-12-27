@@ -24,11 +24,11 @@ const state = reactive({ count: 0 });
 const data = reactive({ text1: "" });
 
 onMounted(async () => {
-  const rsp1 = await fetch(`/apis/index`).then((rsp) =>
+  const rsp1 = await fetch(`/api/index`).then((rsp) =>
     rsp.text()
   );
   data.text1 = rsp1;
-  const rsp2 = await fetch(`/apis/index`, {
+  const rsp2 = await fetch(`/api/index`, {
     method: "POST",
   }).then((rsp) => rsp.text());
   data.text2 = rsp2;

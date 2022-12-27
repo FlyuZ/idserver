@@ -1,11 +1,11 @@
 <template>
   <div class="common-layout">
     <el-container class="layout-container" style="height: 500px">
-      <el-header height="50px">
+      <!-- <el-header height="50px">
         <div>
           <img src="./assets/nwafu.svg" width="264" height="43" />
         </div>
-      </el-header>
+      </el-header> -->
       <el-container>
         <el-aside width="20%">
           <el-menu default-active="0"  @open="handleOpen" @close="handleClose"
@@ -66,7 +66,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
 }
 .layout-container .el-header {
   position: relative;
-  background-color: #67C23A;
+  background-color: gray;
   color: var(--el-text-color-primary);
 }
 </style>

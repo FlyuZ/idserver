@@ -1,3 +1,5 @@
 flask
 flask_cors
 flask_restful
+nvidia-ml-py3
+greenlet
