@@ -2,7 +2,7 @@
     <div>
         <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
         <h1>说明</h1>
-        <h1>视频流演示</h1>
+
         <el-row justify="center">
             <el-skeleton style="width:240px;  height:240px" :loading="loading" animated>
                 <template #default>
