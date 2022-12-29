@@ -28,6 +28,8 @@ def upload_and_infer():
 
 @app.route('/initIDenv/', methods=['GET'])
 def init_id_env():
+    gallery = request.values.get('gallery')
+    print(gallery)
     # init_env("resnetst")
     return "success"
 

@@ -49,8 +49,8 @@
                 </el-col>
               </el-row>
               <el-row justify="center" style="margin-bottom:30px;font-size:18px; ">
-                <el-col :span="16" v-model="idtext">
-                  {{ idtext }}
+                <el-col :span="16" v-model="imgidtext">
+                  {{ imgidtext }}
                 </el-col>
               </el-row>
               <el-row justify="center" style="margin-bottom:20px;">
@@ -74,8 +74,8 @@
                 </el-skeleton>
               </el-row>
               <el-row justify="center" style="margin-bottom:30px;font-size:18px; ">
-                <el-col :span="20" v-model="idtext">
-                  {{ idtext }}
+                <el-col :span="20" v-model="videoidtext">
+                  {{ videoidtext }}
                 </el-col>
               </el-row>
 
@@ -100,9 +100,8 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { ElMessage, UploadProps } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue'
-import { UploadFilled } from '@element-plus/icons-vue'
+import { ElMessage} from 'element-plus'
+import { Plus , UploadFilled} from '@element-plus/icons-vue'
 import axios from "axios"
 
 const active = ref(0)
@@ -110,7 +109,8 @@ const galleryValue = ref('')
 const radio1 = ref('图 像')
 const noneBtnImg = ref(false)
 const curfile = ref(null)
-const idtext = ref('')
+const imgidtext = ref('')
+const videoidtext = ref('')
 const loading = ref(false)
 const type = ref(true)
 const inputIP = ref('')
@@ -135,7 +135,7 @@ const initIDenv = () => {
     })
   } else {
     console.log('radio', radio1.value)
-    axios.post("/api/initIDenv").then((res) => {
+    axios.get("/api/initIDenv?gallery="+galleryValue.value).then((res) => {
       console.log('res', res)
       ElMessage({
         message: '加载模型成功',
@@ -184,8 +184,8 @@ const startimage = () => {
     }).catch(err => {
       console.log(err)
     })
-    idtext.value = 'ID: 100'
-    console.log(idtext)
+    imgidtext.value = 'ID: 104016'
+    console.log(imgidtext)
   }
 }
 var timer
