@@ -8,6 +8,9 @@
             <el-menu-item index="HelloWorld">
               <span>首页</span>
             </el-menu-item>
+            <el-menu-item index="IDmanager">
+              <span>身份管理</span>
+            </el-menu-item>
             <el-menu-item index="ID">
               <span>身份识别</span>
             </el-menu-item>

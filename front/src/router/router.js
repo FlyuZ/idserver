@@ -14,6 +14,11 @@ const router = createRouter({   //createRouter   vue2中是 new Vue
         component: () => import('../components/HelloWorld.vue')
     },
     {
+        name: 'IDmanager',
+        path: '/IDmanager',
+        component: () => import('../components/IDmanager.vue')
+    },
+    {
         name: 'ID',
         path: '/ID',
         component: () => import('../components/ID.vue')
