@@ -1,7 +1,7 @@
 # idserver
 
 ### 配置环境
-
+vue3 + element ui + flask + pytorch
 ```
 # 前端环境依赖安装
 cd front

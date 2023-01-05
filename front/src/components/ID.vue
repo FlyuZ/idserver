@@ -10,7 +10,7 @@
       </el-header>
 
       <el-container>
-        <el-aside width="40%" style="padding:10px;">
+        <el-aside width="35%" style="padding:10px;">
           <el-card class="left-card" shadow="always">
             <el-row :gutter="20" style="margin-bottom:50px;">
               <el-col :span="8" style="font-size:18px;">选择检索库</el-col>
@@ -31,13 +31,14 @@
             </el-row>
             <el-row style="margin-bottom:50px;">
               <el-col :span="24">
-                <el-button type="primary" @click="initIDenv" style="width:150px;font-size:16px;letter-spacing:5px;">开始加载</el-button>
+                <el-button type="primary" @click="initIDenv"
+                  style="width:150px;font-size:16px;letter-spacing:5px;">开始加载</el-button>
               </el-col>
             </el-row>
           </el-card>
         </el-aside>
 
-        <el-main width="60%" style="padding:10px">
+        <el-main width="65%" style="padding:10px">
           <el-card class="right-card" shadow="always">
             <div class="imageid" :class="{ displayType: !type }">
               <el-row justify="center" style="margin-bottom:20px;width:200px">
@@ -55,36 +56,51 @@
               </el-row>
               <el-row justify="center" style="margin-bottom:20px;">
                 <el-col :span="24">
-                  <el-button type="primary" @click="startimage" style="width:150px;font-size:16px;letter-spacing:5px;">开始识别</el-button>
+                  <el-button type="primary" @click="startimage"
+                    style="width:150px;font-size:16px;letter-spacing:5px;">开始识别</el-button>
                 </el-col>
               </el-row>
             </div>
 
             <div class="videoid" :class="{ displayType: type }">
-              <el-row justify="center" style="margin-bottom:20px;">
-                <el-skeleton style="width: 200px" :loading="loading" animated>
-                  <template #default>
-                    <el-skeleton-item variant="image" style="width: 200px; height: 200px" />
-                  </template>
-                  <template #template>
-                    <el-card :body-style="{padding:'0px', marginBottom:'0px' }">
-                      <img style="width:200px;  height:200px" :src="imgurl" />
-                    </el-card>
-                  </template>
-                </el-skeleton>
+              <el-row justify="center" style="margin-bottom:10px;">
+                <el-col :span="12">
+                  <el-skeleton style="width: 250px" :loading="loading" animated>
+                    <template #default>
+                      <el-skeleton-item variant="image" style="width: 250px; height: 250px" />
+                    </template>
+                    <template #template>
+                      <el-card :body-style="{ padding: '0px', marginBottom: '0px' }">
+                        <img style="width:250px;  height:250px" :src="imgurl" />
+                      </el-card>
+                    </template>
+                  </el-skeleton>
+                </el-col>
+                <el-col :span="12">
+                  <el-table :data="videoData" height="250" style="width:450px;">
+                    <el-table-column type="index"/>
+                    <el-table-column prop="data" label="Data" />
+                    <el-table-column prop="gallery" label="Gallery" />
+                    <el-table-column prop="id" label="ID" />
+                  </el-table>
+                </el-col>
               </el-row>
-              <el-row justify="center" style="margin-bottom:30px;font-size:18px; ">
+
+              <el-row justify="center" style="margin-bottom:20px;font-size:18px; ">
                 <el-col :span="20" v-model="videoidtext">
                   {{ videoidtext }}
                 </el-col>
               </el-row>
 
-              <el-row style="margin-bottom:20px;width:300px;">
+              <el-row justify="center" style="margin-bottom:20px">
                 <el-col :span="16">
                   <el-input v-model="inputIP" placeholder="请输入IP地址，开始识别" clearable />
                 </el-col>
                 <el-col :span="8">
-                  <el-switch v-model="loading" @change="swithchange"/>
+                  <el-switch v-model="loading" @change="swithchange"  inline-prompt  size="large"
+                  active-text="开始"
+                  inactive-text="暂停"
+                  />
                 </el-col>
               </el-row>
             </div>
@@ -100,8 +116,9 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { ElMessage} from 'element-plus'
-import { Plus , UploadFilled} from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
+import type { TableColumnCtx } from 'element-plus'
+import { Plus, UploadFilled } from '@element-plus/icons-vue'
 import axios from "axios"
 
 const active = ref(0)
@@ -125,6 +142,39 @@ const options = [
     label: '曹新庄养殖场',
   },
 ]
+interface tableVideoData {
+  data: string
+  gallery: string
+  id: string
+}
+
+const videoData = ref([
+  {
+    data: '12987122',
+    gallery: 'Tom',
+    id: '234',
+  },
+  {
+    data: '12987122',
+    gallery: 'Tom',
+    id: '234',
+  },
+  {
+    data: '12987122',
+    gallery: 'Tom',
+    id: '234',
+  },
+  {
+    data: '12987122',
+    gallery: 'Tom',
+    id: '234',
+  },
+  {
+    data: '12987122',
+    gallery: 'Tom',
+    id: '234',
+  },
+])
 
 const initIDenv = () => {
   console.log('加载模型', galleryValue.value)
@@ -135,7 +185,7 @@ const initIDenv = () => {
     })
   } else {
     console.log('radio', radio1.value)
-    axios.get("/api/initIDenv?gallery="+galleryValue.value).then((res) => {
+    axios.get("/api/initIDenv?gallery=" + galleryValue.value).then((res) => {
       console.log('res', res)
       ElMessage({
         message: '加载模型成功',
@@ -193,10 +243,16 @@ const swithchange = (val) => {
   console.log(loading.value)
   if (loading.value) {
     timer = setInterval(function () {
-      axios.get("/api/video_feed").then((response) => {
-        console.log(response.data)
-        imgurl.value = "data:image/jpeg;base64," + response.data["imgbase64"]
-      });
+      // axios.get("/api/video_feed").then((response) => {
+      //   console.log(response.data)
+      //   imgurl.value = "data:image/jpeg;base64," + response.data["imgbase64"]
+      // });
+      //add new data
+      videoData.value.push({
+        data: '12987122',
+        gallery: 'make',
+        id: '1',
+      })
     }, 1000);
   } else {
     window.clearInterval(timer);
@@ -207,7 +263,6 @@ const swithchange = (val) => {
 
 <style>
 .left-card {
-  border-radius: 10px;
   height: 400px;
   display: flex;
   align-items: center;
@@ -215,7 +270,6 @@ const swithchange = (val) => {
 }
 
 .right-card {
-  border-radius: 10px;
   height: 400px;
   display: flex;
   align-items: center;

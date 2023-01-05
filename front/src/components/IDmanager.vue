@@ -10,7 +10,7 @@
                 </el-row>
             </el-header>
             <el-container>
-                <el-aside width="40%" style="padding:10px;">
+                <el-aside width="50%" style="padding:10px;">
                     <el-card shadow="always" style="height: 400px;">
                         <el-row>
                             <el-col :span="24" :gutter="20" style="margin-bottom:20px;">
@@ -39,7 +39,7 @@
                         </el-row>
                     </el-card>
                 </el-aside>
-                <el-main width="60%" style="padding:10px">
+                <el-main width="50%" style="padding:10px">
                     <el-card shadow="always" style="height: 400px;">
                         <el-table :data="IDInfo" style="width: 100%; height: 360px;" stripe>
                             <el-table-column prop="gallery" label="Gallery" />
@@ -49,8 +49,8 @@
                                 <template #default="scope">
                                     <el-button link type="primary" size="small"
                                         @click="Edit(scope.$index, scope.row)">编辑</el-button>
-                                    <el-button link type="primary" size="small"
-                                        @click="Delete(scope.$index, scope.row)">删除</el-button>
+                                    <!-- <el-button link type="primary" size="small"
+                                        @click="Delete(scope.$index, scope.row)">删除</el-button> -->
                                 </template>
                             </el-table-column>
                         </el-table>
