@@ -185,8 +185,8 @@ const initIDenv = () => {
     })
   } else {
     console.log('radio', radio1.value)
-    axios.get("/api/initIDenv?gallery=" + galleryValue.value).then((res) => {
-      console.log('res', res)
+    axios.get("/api/initenv?gallery=" + galleryValue.value).then((res) => {
+      console.log(res.data)
       ElMessage({
         message: '加载模型成功',
         type: 'success'
@@ -225,8 +225,9 @@ const startimage = () => {
     const fileParam = new FormData()
     fileParam.append("file", curfile.value["raw"])
     fileParam.append("fileName", curfile.value["name"])
-    axios.post('/api/uploadAndInfer', fileParam).then(res => {
-      console.log(res)
+    axios.post('/api/uploadandinfer', fileParam).then(res => {
+      console.log(res.data)
+      imgidtext.value = res.data[0]
       ElMessage({
         message: '识别成功',
         type: 'success'
@@ -234,7 +235,6 @@ const startimage = () => {
     }).catch(err => {
       console.log(err)
     })
-    imgidtext.value = 'ID: 104016'
     console.log(imgidtext)
   }
 }

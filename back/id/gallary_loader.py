@@ -7,20 +7,15 @@ import torch
 import os.path as osp
 import os
 from PIL import Image, ImageFile
-from torch.utils.data import Dataset
-import os.path as osp
-from torch.utils.data import DataLoader
+from torch.utils.data import Dataset, DataLoader
 import torchvision.transforms as T
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
-
 
 def read_image(img_path):
     """Keep reading image until succeed.
     This can avoid IOError incurred by heavy IO process."""
     got_img = False
-    if not osp.exists(img_path):
-        raise IOError("{} does not exist".format(img_path))
     while not got_img:
         try:
             img = Image.open(img_path).convert('RGB')
@@ -37,12 +32,12 @@ class ImageDataset(Dataset):
         self.gallery_dir = root
         self.gallery, self.num_gallery_pids, self.num_gallery_imgs = self._process_dir(self.gallery_dir)
         
-    def _process_dir(self, dir_path, relabel=False):
+    def _process_dir(self, dir_path):
         all_label = os.listdir(dir_path)
         dataset = []
         cnt = 0
         for cur_label in all_label:
-            img_paths = glob.glob(osp.join(dir_path,cur_label, '*.jpg'))
+            img_paths = glob.glob(osp.join(dir_path, cur_label, '*.jpg'))
             for img_path in img_paths:
                     dataset.append((img_path, int(cur_label)))
                     cnt += 1
@@ -68,7 +63,6 @@ def print_dataset_statistics(dataset):
 
 def val_collate_fn(batch):
     imgs, pids, img_paths = zip(*batch)
-
     return torch.stack(imgs, dim=0), pids, img_paths
 
 def make_dataloader(data_root):
@@ -80,7 +74,7 @@ def make_dataloader(data_root):
     gallary_dataset = ImageDataset(root=data_root, transform=gallery_transforms)
     print_dataset_statistics(gallary_dataset)
     gallery_loader = DataLoader(
-        gallary_dataset, batch_size=16, shuffle=False, num_workers=16, collate_fn=val_collate_fn
+        gallary_dataset, batch_size=16, shuffle=False, num_workers=0, collate_fn=val_collate_fn
     )
     return gallery_loader
 
