@@ -6,7 +6,7 @@ import torch
 import numpy as np
 
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 IMAGE_SIZE = 448
 PATH = os.path.dirname(os.path.abspath("."))
 WEIGHTS_PATH = os.path.join(PATH, "weights")
@@ -25,7 +25,6 @@ def euclidean_distance(qf, gf):
 
 
 def compute(query_feat, gallery_feats):
-    print("The feature is normalized")
     gallery_feats = torch.nn.functional.normalize(gallery_feats, dim=1, p=2)
     query_feat = torch.nn.functional.normalize(query_feat, dim=1, p=2)
     print('=> Computing DistMat with euclidean_distance')
@@ -39,8 +38,8 @@ def init_env():
     global gallery_feats
     global gallery_pids
     model = torch.jit.load(MODEL_PATH)
-    gallery_feats = np.load(os.path.join(WEIGHTS_PATH, "feature_gallery"))
-    gallery_pids = np.load(os.path.join(WEIGHTS_PATH, "labels_gallery"))
+    gallery_feats = np.load(os.path.join(WEIGHTS_PATH, "feature_gallery.npy"))
+    gallery_pids = np.load(os.path.join(WEIGHTS_PATH, "labels_gallery.npy"))
 
 
 def inference_single(probe_image_obj):
@@ -55,8 +54,10 @@ def inference_single(probe_image_obj):
     )
     image = transform(image).unsqueeze(dim=0)
     cuda_image = image.to(device)
+    print("begin")
     with torch.no_grad():
         query_feat = model(cuda_image)
-    indices = compute(query_feat.cpu(), gallery_feats, gallery_pids)
+    indices = compute(query_feat.cpu(), torch.Tensor(gallery_feats))
     res_pids = gallery_pids[indices[:5]]
+    print(res_pids)
     return res_pids

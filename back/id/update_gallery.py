@@ -2,10 +2,11 @@
 import os 
 import json
 import os
-from gallary_loader import make_dataloader
+from .gallery_loader import make_dataloader
 import torch
 import numpy as np
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 PATH = os.path.dirname(os.path.abspath("."))
 GALLERY_PATH = os.path.join(PATH, "gallery")
 GALLERY_JSON_PATH = os.path.join(PATH, "galleryid.json")
@@ -61,6 +62,8 @@ def update_gallery_feature():
     gallery_feats, gallery_pids, gallery_paths = get_gallery_feats(model, gallerydataset)
     np.save(os.path.join(WEIGHTS_PATH, 'feature_gallery'), gallery_feats.numpy())
     np.save(os.path.join(WEIGHTS_PATH, 'labels_gallery'), gallery_pids)
+    model = None
+    print("gallery feature success")
 
 
 # if __name__ == "__main__":

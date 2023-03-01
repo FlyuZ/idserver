@@ -32,18 +32,17 @@ def update_gallery_feats():
     return "success"
 
 # 单图测试
-@app.route('/uploadandinfer', methods=['GET'])
+@app.route('/uploadandinfer', methods=['POST'])
 def upload_and_infer():
     file_obj = request.files.get('file')
     file_name = request.form.get('fileName')
-    res = inference_single(file_obj)
-    return jsonify(res)
+    res_pids = inference_single(file_obj)
+    return str(res_pids[0])
 
 
 @app.route('/initenv/', methods=['GET'])
 def init_id_env():
     gallery = request.values.get('gallery')
-    print(gallery)
     init_env()
     return "success"
 
@@ -72,4 +71,4 @@ def video_feed():
 
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=8010)
+    app.run(host='172.29.1.85', port=8010)

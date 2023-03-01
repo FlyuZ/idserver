@@ -227,7 +227,7 @@ const startimage = () => {
     fileParam.append("fileName", curfile.value["name"])
     axios.post('/api/uploadandinfer', fileParam).then(res => {
       console.log(res.data)
-      imgidtext.value = res.data[0]
+      imgidtext.value = res.data
       ElMessage({
         message: '识别成功',
         type: 'success'

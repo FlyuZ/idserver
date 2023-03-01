@@ -183,7 +183,7 @@ const updateGallery = () => {
       message: "更新成功.",
       type: "success",
     });
-  }, 2000);
+  }, 5000);
 };
 </script>
 
